@@ -13,7 +13,7 @@ type Repo struct {
 }
 
 func getRepos(username, token string) ([]Repo, error) {
-	url := fmt.Sprintf("https://api.github.com/users/%s/repos?per_page=100", username)
+	url := fmt.Sprintf("https://api.github.com/users/%s/repos?per_page=200", username)
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Authorization", "token "+token)
@@ -30,7 +30,7 @@ func getRepos(username, token string) ([]Repo, error) {
 }
 
 func countCommits(username, repo, token string) (int, error) {
-	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/commits?per_page=100", username, repo)
+	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/commits?author=%s&per_page=100", username, repo, username)
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Authorization", "token "+token)
